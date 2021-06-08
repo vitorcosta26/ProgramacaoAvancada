@@ -33,53 +33,53 @@ public class FuncionarioController {
 	}
 	
 	@PostMapping("/funcionario")
-    public ResponseEntity<Object> cadastroFuncionario(@RequestBody Funcionario funcionario){
-        try {
-        	Date data = new Date();
-        	funcionario.setData(data);
-            funcionarioRepository.save(funcionario);
-            return ResponseEntity.ok(funcionario);
-        } catch (Exception e) {
-            e.printStackTrace();
-            HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
-            return ResponseEntity.status(httpStatus).body(null);
-        }
-    }
+	public ResponseEntity<Object> cadastroFuncionario(@RequestBody Funcionario funcionario) {
+		try {
+			Date data = new Date();
+			funcionario.setData(data);
+			funcionarioRepository.save(funcionario);
+			return ResponseEntity.ok(funcionario);
+		} catch (Exception e) {
+			e.printStackTrace();
+			HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+			return ResponseEntity.status(httpStatus).body(null);
+		}
+	}
 	
 	@GetMapping("/funcionarios")
-    public ResponseEntity<List<Funcionario>> obterFuncionarios(){
-        try {
-            List<Funcionario> funcionarios = funcionarioRepository.findAll();
-            if (funcionarios != null){
-                return ResponseEntity.ok(funcionarios);
-            }else{
-                return ResponseEntity.badRequest().body(null);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body(null);
-        }
-    }
+	public ResponseEntity<List<Funcionario>> obterFuncionarios() {
+		try {
+			List<Funcionario> funcionarios = funcionarioRepository.findAll();
+			if (funcionarios != null) {
+				return ResponseEntity.ok(funcionarios);
+			} else {
+				return ResponseEntity.badRequest().body(null);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(500).body(null);
+		}
+	}
 	
 	@GetMapping("/funcionarios/{nome}")
-    public ResponseEntity<Object> obterFuncionario(@PathVariable("nome") String nome){
-        try {
-            Optional<Funcionario> funcionario = funcionarioRepository.findByNomeContainingIgnoreCase(nome);
-            if (funcionario.isPresent()){
-                return ResponseEntity.ok(funcionario.get());
-            }else{
-                return ResponseEntity.badRequest().body(null);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body(null);
-        }
-    }
+	public ResponseEntity<Object> obterFuncionario(@PathVariable("nome") String nome) {
+		try {
+			Optional<Funcionario> funcionario = funcionarioRepository.findByNomeContainingIgnoreCase(nome);
+			if (funcionario.isPresent()) {
+				return ResponseEntity.ok(funcionario.get());
+			} else {
+				return ResponseEntity.badRequest().body(null);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(500).body(null);
+		}
+	}
 	
 	@PutMapping("/funcionario/{matricula}/{opcao}/{dadoAtualizado}")
-    public ResponseEntity<Object> atualizar(@PathVariable ("matricula") Long matricula, @PathVariable ("opcao") int opcao, @PathVariable ("dadoAtualizado") String dadoAtualizado){
-        try {
-        	Optional<Funcionario> funcionario = funcionarioRepository.findById(matricula);
+	public ResponseEntity<Object> atualizar(@PathVariable ("matricula") Long matricula, @PathVariable ("opcao") int opcao, @PathVariable ("dadoAtualizado") String dadoAtualizado) {
+		try {
+			Optional<Funcionario> funcionario = funcionarioRepository.findById(matricula);
 			if (funcionario.isPresent()) {
 				Funcionario atualizacao = funcionario.get();
 				switch (opcao) {
@@ -95,25 +95,25 @@ public class FuncionarioController {
 			} else {
 				return ResponseEntity.badRequest().body(null);
 			}
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body(null);
-        }
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(500).body(null);
+		}
+	}
 	
 	@DeleteMapping("/remocao_funcionario/{matricula}")
-	public ResponseEntity<Boolean> deletar(@PathVariable ("matricula") Long matricula){
-        try {
-        	Optional<Funcionario> funcionario = funcionarioRepository.findById(matricula);
+	public ResponseEntity<Boolean> deletar(@PathVariable ("matricula") Long matricula) {
+		try {
+			Optional<Funcionario> funcionario = funcionarioRepository.findById(matricula);
 			if (funcionario.isPresent()) {
 				funcionarioRepository.deleteById(matricula);
 				return ResponseEntity.ok(true);
 			} else {
 				return ResponseEntity.badRequest().body(null);
 			}
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body(null);
-        }
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(500).body(null);
+		}
+	}
 }
