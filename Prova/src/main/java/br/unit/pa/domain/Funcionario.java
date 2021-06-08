@@ -66,10 +66,10 @@ public class Funcionario {
 	@Override
 	public String toString() {
 		return "{" + 
-				" matricula= '" + getMatricula() + "'" +
-				", nome= '" + getNome() + "'" +
-				", email= '" + getEmail() + "'" +
-				", dataDeCadastro= '" + getData()  + "'" +
-				"}";
+			" matricula= '" + getMatricula() + "'" +
+			", nome= '" + getNome() + "'" +
+			", email= '" + getEmail() + "'" +
+			", dataDeCadastro= '" + getData()  + "'" +
+			"}";
 	}
 }
